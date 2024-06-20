@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
                 Text.rich(
                 TextSpan(
                   children: <TextSpan>[
-                    TextSpan(text: "Welcome to Taskify!",
+                    TextSpan(text: "Welcome to Tasksify!",
                     style:TextStyle(
                       color: Colors.blue,
                       fontSize: 34,
@@ -43,12 +43,12 @@ class LoginScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: (){},
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(Size(350, 20)),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                    elevation: MaterialStateProperty.all<double>(70),
+                    minimumSize: WidgetStateProperty.all<Size>(Size(350, 20)),
+                    backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
+                    foregroundColor: WidgetStateProperty.all<Color>(Colors.red),
+                    elevation: WidgetStateProperty.all<double>(70),
                     alignment: Alignment.center,
-                    padding: MaterialStateProperty.all<EdgeInsets>( EdgeInsets.all(20))
+                    padding: WidgetStateProperty.all<EdgeInsets>( EdgeInsets.all(20))
                   ),
                   child: Text("Login",
                   style: TextStyle(
