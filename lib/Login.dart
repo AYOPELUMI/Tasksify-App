@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:task_app/AnimatedToggleSwitch.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -20,24 +21,34 @@ class _FormScreenState extends State<FormScreen> {
   final TextEditingController _controllerPassword = TextEditingController();
 
   bool _obscurePassword = true;
+  bool isSwitched = false;
+   bool isSwitchedValidated = true;
+  String errorText = " ";
 
   void _submit(){
     final isValid = _formKey.currentState?.validate();
 
-    if(isValid!){
+    if(isValid! && isSwitched == true){
+      setState(()=>errorText = " ");
+       _formKey.currentState?.save();
+     Navigator.pushNamed(context, '/dashboard');
       return;
     }
-    _formKey.currentState?.save();
+    else{
+      setState(()=>isSwitchedValidated = false);
+    }
+   
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body:  Form(
         key: _formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 50.0),
+        padding: const EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 50.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -45,11 +56,11 @@ class _FormScreenState extends State<FormScreen> {
                                   const Text(
                       "Sign up",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 36,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 50),
               TextFormField(
                 keyboardType: TextInputType.name,
                  controller: _controllerName,
@@ -126,26 +137,47 @@ class _FormScreenState extends State<FormScreen> {
                   return null;
                 }
               ),
-              Row(
-                children:[
-                  Text(
-                    "Accept Terms and Condition"
+              SizedBox(height:20),
+                SwitchListTile(
+                    title:  Row( 
+                      children:[
+                        Text("Accept",
+                        style: TextStyle(
+                          fontSize:15,
+                        fontWeight: FontWeight.bold,
+                          color: Colors.black
+                        ),),
+                    Text("Terms & Conditions",
+                      style: TextStyle(
+                        fontSize:15,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF6C63FF),
+                      )
+                      )
+                      ]),
+                    value: isSwitched,
+                    onChanged: (val) {
+                      setState(()=>isSwitched = val);
+                      if (isSwitched== true){
+                        setState(()=> isSwitchedValidated = true);
+                      }
+                    },
                   ),
-                  AnimatedToggleSwitch()
-                ]
-              ),
+                  isSwitchedValidated? const Text("") : const Text("this field is required", style: TextStyle(
+                    color: Colors.red,
+                  ),),
               const SizedBox(height: 35),
               ElevatedButton(
                 onPressed: (){_submit();},
-                 style: ButtonStyle(
-                    minimumSize: WidgetStateProperty.all<Size>(Size(350, 20)),
-                    backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
-                    foregroundColor: WidgetStateProperty.all<Color>(Colors.red),
-                    elevation: WidgetStateProperty.all<double>(70),
+                 style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF6C63FF),
+                    minimumSize: const Size(350, 20),
+                    foregroundColor: Colors.red,
+                    elevation:10,
                     alignment: Alignment.center,
-                    padding: WidgetStateProperty.all<EdgeInsets>( EdgeInsets.all(15))
+                    padding:  const EdgeInsets.all(15)
                   ),
-                  child: Text("Register",
+                  child: const Text("Register",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -160,19 +192,21 @@ class _FormScreenState extends State<FormScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     border: Border.all(
-                      color: Colors.purple,
+                      color: Colors.white,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: const Offset(0, 1), // changes position of shadow
-                      ),
-                    ],
+
                   ),
                   child: TextButton(
                     onPressed: () {},
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.grey)
+                        )
+                      ),
+                      backgroundColor: WidgetStatePropertyAll<Color>(Colors.white),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -189,7 +223,8 @@ class _FormScreenState extends State<FormScreen> {
                         const Text("Google",
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.purple,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/HomeScreen.dart';
 import 'package:task_app/Login.dart';
 
+import 'LoginScreen.dart';
 
-void main() {
-  runApp(ToDoApp());
-}
-
+void main() => runApp(
+  MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => LoginScreen(),
+      '/login': (context) => FormScreen(),
+      '/dashboard': (context) =>ToDoApp(),
+    },
+  ),
+);
 
 class ToDoApp extends StatelessWidget {
   const ToDoApp({super.key});
@@ -15,7 +23,7 @@ class ToDoApp extends StatelessWidget {
     return MaterialApp(
         title: "Task List",
         theme: ThemeData(primaryColor: Colors.blue),
-        home: const FormScreen(),
+        home: const BottomNavigationExample(),
         debugShowCheckedModeBanner: false
     );
   }
