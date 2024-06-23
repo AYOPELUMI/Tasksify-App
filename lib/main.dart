@@ -24,7 +24,7 @@ class ToDoApp extends StatelessWidget {
         title: "Task List",
         theme: ThemeData(primaryColor: Colors.blue),
         home: const BottomNavigationExample(),
-        debugShowCheckedModeBanner: false
+        debugShowCheckedModeBanner: true
     );
   }
 }

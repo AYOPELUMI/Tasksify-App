@@ -15,7 +15,7 @@ class ToDoHome extends StatefulWidget {
 }
 
 class _ToDoHomeState extends State<ToDoHome> {
-
+  final _formKey = GlobalKey<FormState>();
    final _taskController = TextEditingController();
    final _todoController = TextEditingController();
    int taskDoneToday = 0;
@@ -60,6 +60,7 @@ class _ToDoHomeState extends State<ToDoHome> {
       final todocontroller = TextEditingController(text: taskList[index][0]);
            showDialog(context: context, builder: (context){
         return DialogWidget(
+          formKey: _formKey,
           taskController: taskcontroller,
           todoController: todocontroller,
           taskText: taskList[index][1],
@@ -68,11 +69,15 @@ class _ToDoHomeState extends State<ToDoHome> {
 
           onSave: (){
             print("i am running the edit function");
-            setState((){
-              taskList[index][0] = taskcontroller.text;
-              taskList[index][1] = todocontroller.text;
-            });
-            Navigator.of(context, rootNavigator: true).pop(context);
+                final isValid = _formKey.currentState?.validate();
+
+                if(isValid!){
+                    setState((){
+                      taskList[index][0] = taskcontroller.text;
+                      taskList[index][1] = todocontroller.text;
+                    });
+                    Navigator.of(context, rootNavigator: true).pop(context);
+                }
           },
           onCancel: (){
             cancelTask();
@@ -89,16 +94,22 @@ class _ToDoHomeState extends State<ToDoHome> {
     }
     void saveNewTask(){
       print("save task enables");
-      setState((){
-        taskList.add([_taskController.text, _todoController.text,false]);
-        _todoController.clear();
-        _taskController.clear();
-        hideMoreOptions();
-        taskDoneToday +=1;
-      });
+     
+                     final isValid = _formKey.currentState?.validate();
+
+                if(isValid!){
+                setState((){
+                  taskList.add([_taskController.text, _todoController.text,false]);
+                  _todoController.clear();
+                  _taskController.clear();
+                  hideMoreOptions();
+                  taskDoneToday +=1;
+      Navigator.of(context, rootNavigator: true).pop(context);
+                });}
+                
+                
       // Navigator.pop(context);
       // Navigator.of(context).maybePop();
-      Navigator.of(context, rootNavigator: true).pop(context);
       // Navigator.of(context).pop();
     }
     
@@ -110,6 +121,7 @@ class _ToDoHomeState extends State<ToDoHome> {
           taskText: "",
           todoText:"",
           editMode: false,
+          formKey: _formKey,
           onSave: (){
             print("i am running the save function");
             saveNewTask();

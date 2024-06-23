@@ -10,7 +10,8 @@ class DialogWidget extends StatelessWidget {
     required this.onCancel,
     required this.todoText,
     required this.taskText,
-    required this.editMode});
+    required this.editMode,
+    required this.formKey});
 
   final VoidCallback onSave; 
   final VoidCallback onCancel;
@@ -19,14 +20,17 @@ class DialogWidget extends StatelessWidget {
   final bool editMode;
   final taskText;
   final String  todoText;
+  final formKey;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       content: SizedBox(
-        height:250,
-        child:  Column(
+        height:280,
+        child:  Form(
+          key : formKey,
+          child :Column(
           children:[
             const SizedBox(height:30,),
             TextFormField(
@@ -71,7 +75,7 @@ class DialogWidget extends StatelessWidget {
             )
           ]
         ),
-      )
+      ))
     );
   }
 }

@@ -35,7 +35,9 @@ class _FormScreenState extends State<FormScreen> {
       return;
     }
     else{
+      if(isSwitched == false){
       setState(()=>isSwitchedValidated = false);
+      }
     }
    
   }
