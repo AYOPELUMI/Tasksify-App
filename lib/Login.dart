@@ -76,7 +76,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 validator:(String? value){
                   if( value == null || value.isEmpty){
-                    return "Phone Number should be more than 10";
+                    return "This field is required";
                   }
                   return null;
                 },

@@ -18,21 +18,24 @@ class _ToDoHomeState extends State<ToDoHome> {
 
    final _taskController = TextEditingController();
    final _todoController = TextEditingController();
+   int taskDoneToday = 0;
   bool isButtonSelected = true;
     List taskList =[
-      ["task 1","task 1", false],
-      ["task 2","task 1", false],
+      ["kodeCamp Project 1","Dont run mad yet", false],
+      ["KodeCamp Project 2","Unripe Plantain loading", false],
       // ["task 3", false],
       // ["task 4", false],
       // ["task 5", false]
     ];
+   int taskCompletedIndex = 0;
 
     void taskCompleted(bool? value,int index){
       setState((){
         taskList[index][2] = !taskList[index][2];
       });
     }
- 
+  
+
     void deleteTask(int index){
       setState((){
         taskList.removeAt(index);
@@ -52,6 +55,38 @@ class _ToDoHomeState extends State<ToDoHome> {
         isButtonSelected = true;
       });
     }
+    void editMode(int index){
+      final taskcontroller = TextEditingController(text:taskList[index][1]);
+      final todocontroller = TextEditingController(text: taskList[index][0]);
+           showDialog(context: context, builder: (context){
+        return DialogWidget(
+          taskController: taskcontroller,
+          todoController: todocontroller,
+          taskText: taskList[index][1],
+          todoText: taskList[index][0],
+          editMode: true,
+
+          onSave: (){
+            print("i am running the edit function");
+            setState((){
+              taskList[index][0] = taskcontroller.text;
+              taskList[index][1] = todocontroller.text;
+            });
+            Navigator.of(context, rootNavigator: true).pop(context);
+          },
+          onCancel: (){
+            cancelTask();
+          }
+        );
+      });
+    }
+     void editTask(int index){
+      print(" this is the ${index}");
+      print(" this is the ${taskList[index]}");
+
+
+      editMode(index);
+    }
     void saveNewTask(){
       print("save task enables");
       setState((){
@@ -59,6 +94,7 @@ class _ToDoHomeState extends State<ToDoHome> {
         _todoController.clear();
         _taskController.clear();
         hideMoreOptions();
+        taskDoneToday +=1;
       });
       // Navigator.pop(context);
       // Navigator.of(context).maybePop();
@@ -71,6 +107,9 @@ class _ToDoHomeState extends State<ToDoHome> {
         return DialogWidget(
           taskController: _taskController,
           todoController: _todoController,
+          taskText: "",
+          todoText:"",
+          editMode: false,
           onSave: (){
             print("i am running the save function");
             saveNewTask();
@@ -84,10 +123,19 @@ class _ToDoHomeState extends State<ToDoHome> {
 
   @override
   Widget build(BuildContext context) {
+    taskCompletedIndex = taskList.length;
+   for(var index in taskList){
+    if (index[2] == true){
+    }
+    else{
+      taskCompletedIndex-=1;
+    }
+   }
     return Scaffold(
       backgroundColor: const Color.fromARGB(255,3,65,112),
       body:Stack(
-        children: <Widget>[Container( 
+        children: <Widget>
+        [Container( 
           padding: EdgeInsets.fromLTRB(10,0,10,60),
         decoration: BoxDecoration(
           color:Color.fromARGB(255, 243, 243, 243),
@@ -97,12 +145,12 @@ class _ToDoHomeState extends State<ToDoHome> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children:[
             Container(
+              padding:  EdgeInsets.fromLTRB(20.0,40,20,20),
               decoration: BoxDecoration(
                 color: Colors.white,),
-              child: const Padding(
-                padding:  EdgeInsets.fromLTRB(20.0,40,20,20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  // ignore: prefer_const_literals_to_create_immutables
                   children:[
                     DateWidget(),
                     Row(
@@ -128,7 +176,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                         SizedBox(width: 20,),
                         Icon(Icons.notifications_none)]))
                     ],)])
-              ),),
+              ,),
             Container(
               child:  Padding(
                 padding: EdgeInsets.symmetric(horizontal:5.0, vertical:20),
@@ -150,13 +198,13 @@ class _ToDoHomeState extends State<ToDoHome> {
                               children: [
                                 Text("📦", style: TextStyle(fontSize: 24,),),
                                 SizedBox(height: 20,),
-                                Text("Task Today", 
+                                Text("Total Tasks", 
                                   style: TextStyle(
                                     color : Colors.grey,
                                     fontSize:18,
                                   ),),
                                 const SizedBox(height: 5,),
-                                Text("8",
+                                Text('${taskList.length}',
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.black
@@ -174,7 +222,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                               borderRadius: BorderRadius.circular(10),
                               color:Colors.white,
                             ),
-                            child: const Padding(
+                            child: Padding(
                               padding: const EdgeInsets.fromLTRB(20.0,20.0,10,10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,13 +231,13 @@ class _ToDoHomeState extends State<ToDoHome> {
                                    Text("🙌", 
                                    style: TextStyle(fontSize: 24)),                                    
                                     const SizedBox(height: 20,),
-                                    Text("Active Projects",
+                                    Text("Task Completed",
                                     style: TextStyle(
                                     color : Colors.grey,
                                     fontSize:18,
                                   ),),
                                 const SizedBox(height: 5,),
-                                Text("8",
+                                Text('${taskCompletedIndex}',
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.black
@@ -230,7 +278,7 @@ class _ToDoHomeState extends State<ToDoHome> {
             )
           ),
         Expanded(
-          flex: 5,
+          flex: 7,
           child: 
             ListView.builder(
         itemCount: taskList.length,
@@ -240,7 +288,8 @@ class _ToDoHomeState extends State<ToDoHome> {
             todoName:taskList[index][1],
             taskCompleted:taskList[index][2],
             onChanged: (value) => taskCompleted(value,index),
-            onDelete: (value) =>deleteTask(index));
+            onDelete: (value) =>deleteTask(index),
+            onEdit : (value) => editTask(index));
         },
         )
         ),

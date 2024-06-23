@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                     minimumSize: WidgetStateProperty.all<Size>(const Size(350, 20)),
                     backgroundColor: WidgetStateProperty.all<Color>(Color(0xFF6C63FF)),
                     foregroundColor: WidgetStateProperty.all<Color>(Colors.red),
-                    elevation: WidgetStateProperty.all<double>(70),
+                    elevation: WidgetStateProperty.all<double>(20),
                     alignment: Alignment.center,
                     padding: WidgetStateProperty.all<EdgeInsets>( const EdgeInsets.all(20))
                   ),

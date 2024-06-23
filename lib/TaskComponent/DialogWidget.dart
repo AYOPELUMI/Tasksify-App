@@ -7,45 +7,65 @@ class DialogWidget extends StatelessWidget {
     required this.onSave,
     required this.taskController,
     required this.todoController,
-    required this.onCancel});
+    required this.onCancel,
+    required this.todoText,
+    required this.taskText,
+    required this.editMode});
 
   final VoidCallback onSave; 
   final VoidCallback onCancel;
   final TextEditingController taskController;
-  final TextEditingController todoController;
+  final TextEditingController todoController; 
+  final bool editMode;
+  final taskText;
+  final String  todoText;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       content: SizedBox(
         height:250,
         child:  Column(
           children:[
             const SizedBox(height:30,),
-            TextField(
+            TextFormField(
               controller: taskController,
               decoration: const InputDecoration(
+                labelText:"Project",
                 border: OutlineInputBorder(),
-                hintText:"Create a task"),
+                hintText:"Create a Project"),
+            validator: (value){
+                  if( value == null || value.isEmpty){
+                    return "This field is required";
+                  }
+                  return null;
+            },
             ),
             const SizedBox(height:20,),
-            TextField(
+            TextFormField(
               controller: todoController,
               decoration: const InputDecoration(
+                labelText:"Task",
                 border: OutlineInputBorder(),
                 hintText:"Create a task"),
+                validator: (value){
+                    if( value == null || value.isEmpty){
+                    return "This field is required";
+                  }
+                  return null;
+                }
             ),
             const SizedBox(height:20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children:[
                 DialogButton(
-                  text: "save",
+                  text: "SAVE",
                   onPressed: onSave),
                 const SizedBox(width:10),
                 DialogButton(
-                  text: "Cancel",
+                  text: "CANCEL",
                   onPressed: onCancel)
               ]
             )

@@ -8,19 +8,19 @@ class TaskWidget extends StatelessWidget {
     required this.todoName,
     required this.taskCompleted,
     this.onChanged,
-    this.onDelete});
+    this.onDelete,
+    this.onEdit});
 
     final String taskName;
     final String todoName;
     final bool taskCompleted;
     final Function(bool?)? onChanged;
     final Function(BuildContext)? onDelete;
+    final Function(BuildContext)? onEdit;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding:const EdgeInsets.symmetric(horizontal:10, vertical : 20),
-        child: Slidable(
+    return Slidable(
           endActionPane: ActionPane(
             motion:const StretchMotion(),
             children:[
@@ -31,20 +31,34 @@ class TaskWidget extends StatelessWidget {
                 borderRadius:BorderRadius.circular(10))
             ]
           ),
+          startActionPane: ActionPane(
+            motion:const StretchMotion(),
+            children:[
+              SlidableAction(
+                onPressed: onEdit,
+                icon:Icons.edit,
+                backgroundColor: Colors.blue,
+                borderRadius:BorderRadius.circular(10))
+            ]
+          ),
         child:  Container(
+        padding:const EdgeInsets.symmetric(horizontal:4, vertical : 5),
+        margin: EdgeInsets.only(left:10, right:10, bottom:10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
         ),
         child: ListTile(
-        leading: Checkbox(
+        leading: Transform.scale(
+          scale:1.6,
+          child:Checkbox(
           value: taskCompleted,
           onChanged: onChanged,
           shape: const CircleBorder(),
             side: MaterialStateBorderSide.resolveWith(
       (states) => BorderSide(width: 1.0, color: Colors.grey),
   ),
-        ),
+        )),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children:[
@@ -57,7 +71,6 @@ class TaskWidget extends StatelessWidget {
          )
       )
         )
-        )
-      );
+        );
   }
 }

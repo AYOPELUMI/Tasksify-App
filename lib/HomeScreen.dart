@@ -16,10 +16,10 @@ class _BottomNavigationExampleState extends State {
   int _selectedTab = 0;
 
   List _pages = [
-    Center(
-      child: Text("Home"),
-    ),
 ToDoHome(),
+    Center(
+      child: Text("Projects"),
+    ),
     Center(
       child: Text("Products"),
     ),
@@ -45,7 +45,7 @@ ToDoHome(),
         unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.description), label: "Project"),
+          BottomNavigationBarItem(icon: Icon(Icons.description), label: "Projects"),
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month), label: "Calendar"),
           BottomNavigationBarItem(

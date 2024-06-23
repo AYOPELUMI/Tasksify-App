@@ -12,8 +12,11 @@ class DialogButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      color: Theme.of(context).primaryColor,
-      child:  Text(text)
+      shape:RoundedRectangleBorder(),
+      padding: EdgeInsets.all(10),
+      elevation: 70,
+      color: (text == "CANCEL" )? Colors.red : Color(0xFF6C63FF),
+      child:  Text(text,style:TextStyle(color :Colors.white))
     );
   }
 }
