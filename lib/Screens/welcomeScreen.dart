@@ -1,9 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+import '../routes/routes.dart';
+import '../utils/Constants/AppColors.dart';
+import '../utils/Constants/Image.dart';
+
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset('assets/home_image.png',
+                Image.asset(AppImage.appImage,
                   height: 300,
                   width: 400,
                   fit: BoxFit.contain,),
@@ -26,7 +31,7 @@ class LoginScreen extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(text: "Welcome to Tasksify!",
                     style:TextStyle(
-                      color: Color(0xFF6C63FF),
+                      color: primaryColor,
                       fontSize: 34,
                       fontWeight: FontWeight.bold)),
                    TextSpan(text: "\nCreate a task today",
@@ -44,11 +49,11 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold)),
                 ElevatedButton(
                   onPressed: (){
-                     Navigator.pushNamed(context, '/login');
+                     Get.offAndToNamed(Routes.loginScreenRoute);
                   },
                   style: ButtonStyle(
                     minimumSize: WidgetStateProperty.all<Size>(const Size(350, 20)),
-                    backgroundColor: WidgetStateProperty.all<Color>(Color(0xFF6C63FF)),
+                    backgroundColor: WidgetStateProperty.all<Color>(primaryColor),
                     foregroundColor: WidgetStateProperty.all<Color>(Colors.red),
                     elevation: WidgetStateProperty.all<double>(20),
                     alignment: Alignment.center,
@@ -66,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(text: "Do you have an account?",
                     style:TextStyle(
-                      color: Colors.black38,
+                      color: secondaryColor,
                       fontSize: 14,),),
                    TextSpan(text: "Log in",
                     style:TextStyle(

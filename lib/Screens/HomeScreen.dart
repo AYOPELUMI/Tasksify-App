@@ -2,17 +2,17 @@
 
 import 'package:flutter/material.dart';
 
-import 'TaskComponent/toDoHome.dart';
+import '../TaskComponent/toDoHome.dart';
 
-class BottomNavigationExample extends StatefulWidget {
-  const BottomNavigationExample({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationExampleState createState() =>
-      _BottomNavigationExampleState();
+  _HomeScreenState createState() =>
+      _HomeScreenState();
 }
 
-class _BottomNavigationExampleState extends State {
+class _HomeScreenState extends State {
   int _selectedTab = 0;
 
   List _pages = [

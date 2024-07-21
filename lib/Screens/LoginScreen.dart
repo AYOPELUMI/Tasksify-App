@@ -1,24 +1,27 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+import '../Controller/loginController.dart';
+import '../routes/routes.dart';
+import '../utils/Constants/AppColors.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<FormScreen> createState() => _FormScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _LoginScreenState extends State<LoginScreen> {
 
 
   final _formKey = GlobalKey<FormState>();
   final isLoading = false;
     final FocusNode _focusNodeEmail = FocusNode();
   final FocusNode _focusNodePassword = FocusNode();
-  final TextEditingController _controllerName = TextEditingController();
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
+
 
   bool _obscurePassword = true;
   bool isSwitched = false;
@@ -31,7 +34,7 @@ class _FormScreenState extends State<FormScreen> {
     if(isValid! && isSwitched == true){
       setState(()=>errorText = " ");
        _formKey.currentState?.save();
-     Navigator.pushNamed(context, '/dashboard');
+     Get.offAndToNamed(Routes.homeScreenRoute);
       return;
     }
     else{
@@ -49,7 +52,9 @@ class _FormScreenState extends State<FormScreen> {
       body:  Form(
         key: _formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: SingleChildScrollView(
+        child: GetBuilder<LoginController>(
+          init: Get.find<LoginController>(),
+          builder: (controller) => SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 50.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -65,7 +70,7 @@ class _FormScreenState extends State<FormScreen> {
               const SizedBox(height: 50),
               TextFormField(
                 keyboardType: TextInputType.name,
-                 controller: _controllerName,
+                 controller: controller.nameController,
                 decoration : InputDecoration( 
                   labelText: "Name",
                   prefixIcon: const Icon(Icons.person_outline),
@@ -87,7 +92,7 @@ class _FormScreenState extends State<FormScreen> {
               const SizedBox(height: 20),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: _controllerEmail,
+                controller:controller.emailController,
                 focusNode: _focusNodeEmail,
                 decoration: InputDecoration(
                   labelText: "Email",
@@ -109,7 +114,7 @@ class _FormScreenState extends State<FormScreen> {
               ),
                             const SizedBox(height: 20),
               TextFormField(
-                controller: _controllerPassword,
+                controller: controller.passwordController,
                 obscureText: _obscurePassword,
                 focusNode: _focusNodePassword,
                   keyboardType: TextInputType.visiblePassword,
@@ -153,7 +158,7 @@ class _FormScreenState extends State<FormScreen> {
                       style: TextStyle(
                         fontSize:15,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF6C63FF),
+                        color: primaryColor,
                       )
                       )
                       ]),
@@ -172,7 +177,7 @@ class _FormScreenState extends State<FormScreen> {
               ElevatedButton(
                 onPressed: (){_submit();},
                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF6C63FF),
+                    backgroundColor: primaryColor,
                     minimumSize: const Size(350, 20),
                     foregroundColor: Colors.red,
                     elevation:10,
@@ -248,6 +253,7 @@ class _FormScreenState extends State<FormScreen> {
         ],
         ),
       ),
+        )
       )
     );
   }
