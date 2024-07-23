@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/Constants/AppColors.dart';
+
 class DialogButton extends StatelessWidget {
   const DialogButton({
       super.key,
@@ -15,7 +17,7 @@ class DialogButton extends StatelessWidget {
       shape:RoundedRectangleBorder(),
       padding: EdgeInsets.all(10),
       elevation: 70,
-      color: (text == "CANCEL" )? Colors.red : Color(0xFF6C63FF),
+      color: (text == "CANCEL" )? Colors.red : primaryColor,
       child:  Text(text,style:TextStyle(color :Colors.white))
     );
   }
