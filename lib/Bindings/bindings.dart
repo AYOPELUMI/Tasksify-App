@@ -9,6 +9,6 @@ class MyBindings implements Bindings{
   void dependencies(){
     Get.lazyPut(() => LoginController());
     Get.lazyPut(() => SplashController());
-    Get.lazyPut(() => TaskController());
+    Get.lazyPut(() => TaskController(), fenix:true);
   }
 }

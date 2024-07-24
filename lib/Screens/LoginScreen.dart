@@ -34,9 +34,7 @@ final LoginController loginController = Get.find();
     if(isValid! && isSwitched == true){
       setState(()=>errorText = " ");
        _formKey.currentState?.save();
-     Get.toNamed(Routes.homeScreenRoute,arguments:{
-     "name": loginController.nameController
-     });
+     Get.toNamed(Routes.homeScreenRoute);
       return;
     }
     else{

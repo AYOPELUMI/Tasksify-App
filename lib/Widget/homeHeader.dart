@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_app/Controller/loginController.dart';
 
 import 'DateWidget.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
-
   @override
   Widget build(BuildContext context) {
-          var data = Get.arguments;
-    return  Container( 
-          padding: EdgeInsets.fromLTRB(10,0,10,60),
+          
+    return GetBuilder<LoginController>(
+          init: Get.find<LoginController>(),
+          builder: (controller) => Container( 
+          padding: EdgeInsets.fromLTRB(10,0,10,0),
         decoration: BoxDecoration(
           color:Color.fromARGB(255, 243, 243, 243),
               
@@ -29,7 +31,7 @@ class HomeHeader extends StatelessWidget {
                     DateWidget(),
                     Row(
                       children: [
-                        Text(data.name,
+                        Text("Hello  " + controller.nameController.text,
                           style: TextStyle(
                             color : Colors.black,
                             fontSize:24,
@@ -58,6 +60,6 @@ class HomeHeader extends StatelessWidget {
                     )
         )]
         )
-              );
+    ));
   }
 }

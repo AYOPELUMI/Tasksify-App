@@ -12,11 +12,8 @@ class HomeFloatingButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-          top: isButtonSelected? null : 0, 
-          left:isButtonSelected? null :  0,
-          bottom: isButtonSelected? 50 : 0,
-          right: isButtonSelected? 10 : 0,
+    return FloatingActionButton(
+        onPressed: () {  },
         child: isButtonSelected? 
         CustomButton(
           backgroundColor:0xFF6C63FF,

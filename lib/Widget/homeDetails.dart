@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../Controller/taskController.dart';
 
 class HomeDetails extends StatelessWidget {
- final TaskController taskController = Get.find();
+ final controller;
+
+  const HomeDetails({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      child: Padding(
                 padding: EdgeInsets.symmetric(horizontal:5.0, vertical:20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+
                   children: [
                     Expanded(
-                      flex: 5,
                         child: Container(
                           decoration:BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -24,6 +25,7 @@ class HomeDetails extends StatelessWidget {
                             padding: const EdgeInsets.fromLTRB(20.0,20.0,10,10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                           // padding: EdgeInsets.all(10.0),
                               children: [
                                 Text("📦", style: TextStyle(fontSize: 24,),),
@@ -34,7 +36,7 @@ class HomeDetails extends StatelessWidget {
                                     fontSize:18,
                                   ),),
                                 const SizedBox(height: 5,),
-                                Text('${taskController.tasks.length}',
+                                Text('${controller.tasks.length}',
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.black
@@ -46,7 +48,7 @@ class HomeDetails extends StatelessWidget {
                       ),
                     const SizedBox(width: 20,),
                     Expanded(
-                        flex: 5,
+                   
                         child: Container(
                             decoration:BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -56,6 +58,8 @@ class HomeDetails extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(20.0,20.0,10,10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+
                             // padding: EdgeInsets.all(10.0),
                                   children: [
                                    Text("🙌", 
@@ -67,7 +71,7 @@ class HomeDetails extends StatelessWidget {
                                     fontSize:18,
                                   ),),
                                 const SizedBox(height: 5,),
-                                Text('${taskController.taskCompleted()}',
+                                Text('${controller.taskCompleted()}',
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.black
@@ -79,6 +83,7 @@ class HomeDetails extends StatelessWidget {
                           ),
                         ],
                       ),
-                    );
+                    )
+    );
   }
 }

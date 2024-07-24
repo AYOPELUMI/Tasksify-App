@@ -7,6 +7,7 @@ import '../Controller/taskController.dart';
 import '../Widget/homeDetails.dart';
 import '../Widget/homeFloatingButtons.dart';
 import '../Widget/homeHeader.dart';
+import '../Widget/taskDetails.dart';
 import '../Widget/taskList.dart';
 import '../data/taskModel.dart';
 
@@ -19,7 +20,7 @@ class ToDoHome extends StatefulWidget {
 }
 
 class _ToDoHomeState extends State<ToDoHome> {
-  final TaskController taskController =Get.find();
+  final TaskController taskController = Get.find();
   final _formKey = GlobalKey<FormState>();
    final _taskController = TextEditingController();
    final _todoController = TextEditingController();
@@ -87,6 +88,16 @@ class _ToDoHomeState extends State<ToDoHome> {
       }
     }
     
+    void routeNextPage(int index){
+      toRouted(index);
+    }
+    void toRouted(int index){
+      Get.to(TaskDetails(),
+      transition:Transition.rightToLeft,
+      duration: Duration(seconds: 1),
+      arguments:taskController.tasks[index]);
+    }
+
     void createNewTask(){
       showDialog(context: context, builder: (context){
         return DialogWidget(
@@ -110,14 +121,16 @@ class _ToDoHomeState extends State<ToDoHome> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return  GetBuilder<TaskController>(
+          init: Get.find<TaskController>(),
+          builder: (controller) => Scaffold(
       backgroundColor: const Color.fromARGB(255,3,65,112),
-      body:Stack(
-        children: <Widget>
+      body: Column(
+          children: <Widget>
         [
           const  HomeHeader(),
-           HomeDetails(),
-        Padding(
+          HomeDetails( controller: controller),
+          Padding(
           padding:const EdgeInsets.fromLTRB(20,5.0,5,0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,13 +156,14 @@ class _ToDoHomeState extends State<ToDoHome> {
             ]
             )
           ),
-        Expanded(
-          flex: 7,
-          child: TaskList(onEdit: onEdit)
-        ),
-        HomeFloatingButtons(addTask:createNewTask, showMoreOptions: showMoreOptions,hideMoreOptions: hideMoreOptions, isButtonSelected : isButtonSelected),
+          Expanded(
+            flex:7,
+            child:TaskList(onEdit: onEdit,
+            controller: taskController,
+            routeChanged:routeNextPage))
         ]
-        )
-        );
+        ),
+        floatingActionButton: HomeFloatingButtons(addTask:createNewTask, showMoreOptions: showMoreOptions,hideMoreOptions: hideMoreOptions, isButtonSelected : isButtonSelected),
+        ));
   }
 }
