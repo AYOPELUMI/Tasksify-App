@@ -17,11 +17,12 @@ class HomeFloatingButtons extends StatelessWidget {
           icon: Icons.add,
           activeIcon: Icons.close,
           spacing: 3,
-          backgroundColor: Colors.white,
+          spaceBetweenChildren: 4,
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
           visible: true, 
-           childPadding: const EdgeInsets.all(5),
+           childPadding: const EdgeInsets.all(1),
           curve: Curves.bounceInOut,
-           childrenButtonSize:  const Size(56.0, 56.0),
            shape:StadiumBorder(),
           children: [
                 // FAB 1
