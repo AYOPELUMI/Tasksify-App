@@ -124,14 +124,14 @@ class _ToDoHomeState extends State<ToDoHome> {
     return  GetBuilder<TaskController>(
           init: Get.find<TaskController>(),
           builder: (controller) => Scaffold(
-      backgroundColor: const Color.fromARGB(255,3,65,112),
+      backgroundColor:  Color(0xFFF2F2F2),
       body: Column(
           children: <Widget>
         [
           const  HomeHeader(),
           HomeDetails( controller: controller),
-          Padding(
-          padding:const EdgeInsets.fromLTRB(20,5.0,5,0),
+          Container(
+          padding:const EdgeInsets.fromLTRB(30,10.0,10,0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children:[

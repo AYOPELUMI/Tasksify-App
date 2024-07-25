@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../utils/Constants/AppColors.dart';
+import 'customTile.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails({super.key});
@@ -16,45 +17,22 @@ class TaskDetails extends StatelessWidget {
         title: Text("Task Details")
       ),
       body:Container(
+        color: Colors.white,
         padding: EdgeInsets.all(30),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
         children:[
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-               mainAxisSize: MainAxisSize.max,
-            children: [
-              Text("Task Title :  "),
-              Text(data.title),
+          CustomTile(title:"Task Tilte : ", data: data.title),
+          SizedBox(height:10),
 
-            ],
-          ),
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Task description :"),
-              Text(data.description),
+          CustomTile(title:"Task description : ", data: data.description),
+          SizedBox(height:10),
+          CustomTile(title:"Task Time of Creation : ", data: data.timeofCreation),
+          SizedBox(height:10),
+          CustomTile(title:"Task completed status", data: data.status? "true" : "false"),
 
-            ],
-          ),
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Time of creation :"),
-              Text(data.timeofCreation),
-
-            ],
-          ),
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Task completed :"),
-              Text(data.status? "true" : "false"),
-
-            ],
-          ),
-
-            ElevatedButton(
+          SizedBox(height:30),
+          ElevatedButton(
               style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     minimumSize: const Size(150, 20),
