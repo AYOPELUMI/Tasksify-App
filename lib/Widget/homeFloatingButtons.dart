@@ -19,6 +19,8 @@ class HomeFloatingButtons extends StatelessWidget {
           spacing: 3,
           spaceBetweenChildren: 4,
           backgroundColor: primaryColor,
+          activeBackgroundColor: Colors.white,
+          activeForegroundColor:Colors.black,
           foregroundColor: Colors.white,
           visible: true, 
            childPadding: const EdgeInsets.all(1),

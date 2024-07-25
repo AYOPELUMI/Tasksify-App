@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../Controller/splashController.dart';
+import '../utils/Constants/AppColors.dart';
 import '../utils/Constants/Image.dart';
 import '../utils/Constants/Name.dart';
 
@@ -20,7 +21,8 @@ class SplashScreen extends StatelessWidget {
             Text(AppText.appName,
             style: TextStyle(
               fontSize: 34,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+              color: primaryColor
             ),
             )
           ],
