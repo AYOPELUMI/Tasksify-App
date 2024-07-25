@@ -31,7 +31,7 @@ class HomeHeader extends StatelessWidget {
                     DateWidget(),
                     Row(
                       children: [
-                        Text("Hello  " + controller.nameController.text,
+                        Text("Hello " + controller.nameController.text + " ",
                           style: TextStyle(
                             color : Colors.black,
                             fontSize:24,

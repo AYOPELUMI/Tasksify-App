@@ -3,26 +3,7 @@ import 'package:get/get.dart';
 import '../data/taskModel.dart';
 
 class TaskController extends GetxController{
-  var tasks = <TaskModel>[
-    TaskModel(
-      title:"helo",
-      description: "soijifjoire",
-      timeofCreation: "12-12-21",
-      status: false
-    ),
-        TaskModel(
-      title:"helo",
-      description: "soijifjoire",
-      timeofCreation: "12-12-21",
-      status: false
-    ),
-        TaskModel(
-      title:"helo",
-      description: "soijifjoire",
-      timeofCreation: "12-12-21",
-      status: false
-    )
-  ].obs;
+  var tasks = <TaskModel>[].obs;
 
   void addTask(TaskModel task){
     tasks.add(task);

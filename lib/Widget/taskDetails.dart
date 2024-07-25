@@ -29,7 +29,7 @@ class TaskDetails extends StatelessWidget {
           SizedBox(height:10),
           CustomTile(title:"Task Time of Creation : ", data: data.timeofCreation),
           SizedBox(height:10),
-          CustomTile(title:"Task completed status", data: data.status? "true" : "false"),
+          CustomTile(title:"Task completed status : ", data: data.status? "true" : "false"),
 
           SizedBox(height:30),
           ElevatedButton(
