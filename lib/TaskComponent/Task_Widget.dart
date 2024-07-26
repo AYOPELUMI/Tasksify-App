@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+
+import '../Widget/taskDetails.dart';
 
 class TaskWidget extends StatelessWidget {
   const TaskWidget({
@@ -9,12 +12,14 @@ class TaskWidget extends StatelessWidget {
     required this.taskCompleted,
     this.onChanged,
     this.onDelete,
-    this.onEdit});
+    this.onEdit,
+    required this.taskDetails});
 
     final String taskName;
     final String todoName;
     final bool taskCompleted;
     final Function(bool?)? onChanged;
+    final taskDetails;
     final Function(BuildContext)? onDelete;
     final Function(BuildContext)? onEdit;
 
@@ -41,12 +46,35 @@ class TaskWidget extends StatelessWidget {
                 borderRadius:BorderRadius.circular(10))
             ]
           ),
-        child:  Container(
+        child:  TextButton(
+          onPressed:() => {
+              Get.to(TaskDetails(),
+      transition:Transition.rightToLeft,
+      duration: Duration(milliseconds: 500),
+      arguments:taskDetails)
+          },
+         child:Container(
         padding:const EdgeInsets.symmetric(horizontal:4, vertical : 5),
-        margin: EdgeInsets.only(left:10, right:10, bottom:10),
+        margin: EdgeInsets.only(left:5, right:5, bottom:5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
+            boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade600,
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: const Offset(0, 3),
+                ),
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  offset: const Offset(-3,0),
+                ),
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  offset: const Offset(3,0),
+                ) // no shadow color set, defaults to black
+            ]
         ),
         child: ListTile(
         leading: Transform.scale(
@@ -55,7 +83,7 @@ class TaskWidget extends StatelessWidget {
           value: taskCompleted,
           onChanged: onChanged,
           shape: const CircleBorder(),
-            side: MaterialStateBorderSide.resolveWith(
+            side: WidgetStateBorderSide.resolveWith(
       (states) => BorderSide(width: 1.0, color: Colors.grey),
   ),
         )),
@@ -71,6 +99,6 @@ class TaskWidget extends StatelessWidget {
          )
       )
         )
-        );
+    ));
   }
 }

@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
+final LoginController loginController = Get.find();
 
   final _formKey = GlobalKey<FormState>();
   final isLoading = false;
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if(isValid! && isSwitched == true){
       setState(()=>errorText = " ");
        _formKey.currentState?.save();
-     Get.offAndToNamed(Routes.homeScreenRoute);
+     Get.toNamed(Routes.homeScreenRoute);
       return;
     }
     else{

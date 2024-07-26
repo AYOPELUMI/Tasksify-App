@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../Controller/taskController.dart';
 import '../TaskComponent/toDoHome.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +18,9 @@ class _HomeScreenState extends State {
   int _selectedTab = 0;
 
   List _pages = [
-ToDoHome(),
+ GetBuilder<TaskController>(
+          init: Get.find<TaskController>(),
+          builder: (controller) => ToDoHome()),
     Center(
       child: Text("Projects"),
     ),

@@ -5,4 +5,5 @@ class LoginController extends GetxController{
 var nameController = TextEditingController();
 var emailController = TextEditingController();
 var passwordController = TextEditingController();
+
 }
